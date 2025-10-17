@@ -18,39 +18,35 @@ export default function SingleUserLogin() {
     }
   };
 
-  return (
-    <form
-      onSubmit={handleLogin}
-      className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm"
-    >
-      <h2 className="text-lg font-semibold mb-4 text-center">Iniciar sesión</h2>
+ return (
+  <div className="login-container">
+    <form onSubmit={handleLogin} className="login-form">
+      <h2>Iniciar sesión</h2>
 
-      <label className="block mb-2">Email</label>
+      <label>Email</label>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full mb-3 p-2 border rounded"
         required
+        className="login-input" /* opcional si querés una clase específica, no necesaria si tu CSS usa .login-form input */
       />
 
-      <label className="block mb-2">Contraseña</label>
+      <label>Contraseña</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full mb-3 p-2 border rounded"
         required
+        className="login-input"
       />
 
-      {error && <div className="text-red-600 mb-2 text-center">{error}</div>}
+      {error && <div>{error}</div>}
 
-      <button
-        type="submit"
-        className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
+      <button type="submit" className="login-button">
         Entrar
       </button>
     </form>
-  );
+  </div>
+);
 }
