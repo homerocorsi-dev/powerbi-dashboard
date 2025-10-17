@@ -1,74 +1,44 @@
-import { useState } from "react";
-
-const USER = import.meta.env.VITE_USER;
-const PASS = import.meta.env.VITE_PASS;
-const POWERBI_URL = import.meta.env.VITE_POWERBI_URL;
+// src/App.jsx
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebaseConfig";
+import SingleUserLogin from "./components/SingleUserLogin";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (user === USER && pass === PASS) {
-      setIsLogged(true);
-    } else {
-      alert("Usuario o contraseña incorrectos");
-    }
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
-  // --- LOGIN ---
-  if (!isLogged) {
+  if (loading) return <div className="p-8 text-center">Cargando...</div>;
+
+  if (user) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-gray-100">
-        <form
-          onSubmit={handleLogin}
-          className="flex flex-col items-center bg-white p-10 rounded-2xl shadow-lg w-96 space-y-4"
-        >
-          <h2 className="text-2xl font-semibold text-center">Acceso privado</h2>
-
-          <input
-            type="text"
-            placeholder="Usuario"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-
+      <div className="flex flex-col items-center min-h-screen bg-gray-50">
+        <div className="w-full flex justify-between items-center p-4 bg-white shadow">
+          <h1 className="text-xl font-bold">Tablero</h1>
           <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            onClick={() => signOut(auth)}
+            className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
           >
-            Ingresar
+            Cerrar sesión
           </button>
-        </form>
+        </div>
+        <Dashboard />
       </div>
     );
   }
 
-  // --- DASHBOARD ---
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 overflow-hidden">
-    <h1 className="text-3xl font-semibold text-gray-800">Tablero</h1>
-      <iframe
-        title="Dashboard Power BI"
-        src={POWERBI_URL}
-        className="rounded-xl shadow-lg"
-        style={{
-          width: "75vw",
-          height: "75vh",
-          border: "none",
-        }}
-      />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <SingleUserLogin />
     </div>
   );
 }
