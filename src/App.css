@@ -1,3 +1,10 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* evita scroll y mantiene las dos secciones fijas */
+}
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -43,5 +50,7 @@
 .login-form button:hover {
   background-color: #535bf2;
 }
+
+
 
 

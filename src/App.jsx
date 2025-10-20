@@ -4,6 +4,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import SingleUserLogin from "./components/SingleUserLogin";
 import Dashboard from "./pages/Dashboard";
+import "./pages/dashboard.css";
+
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -21,11 +23,11 @@ export default function App() {
 
   if (user) {
     return (
-      <div>
-        <div>
-          <h1>Tablero</h1>
-          <button onClick={() => signOut(auth)}>Cerrar sesión</button>
-        </div>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h1>Tablero</h1>
+        <button onClick={() => signOut(auth)}>Cerrar sesión</button>
+      </div>
         <Dashboard />
       </div>
     );

@@ -19,6 +19,8 @@ export default function SingleUserLogin() {
   };
 
  return (
+
+
   <div className="login-container">
     <form onSubmit={handleLogin} className="login-form">
       <h2>Iniciar sesión</h2>
@@ -48,5 +50,6 @@ export default function SingleUserLogin() {
       </button>
     </form>
   </div>
+
 );
 }
