@@ -32,17 +32,19 @@ input, button, select, textarea {
 }
 
 .login-form {
+  position: relative; /* clave: los hijos absolutos se posicionan respecto al form */
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 2rem;
-  border: 2px solid #000; /* borde negro más grueso */
+  border: 2px solid #000;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   background-color: #ffffff;
   width: 100%;
   max-width: 360px;
 }
+
 
 /* Inputs */
 .login-form input {
@@ -67,4 +69,20 @@ input, button, select, textarea {
 .login-form button:hover {
   background-color: #444444;
   transform: translateY(-1px); /* sutil elevación al pasar el mouse */
+}
+
+.login-footer {
+  position: absolute;  /* pegado al form */
+  bottom: -7vh;       /* sobresale 12px debajo del borde */
+  right: 0;            /* alineado a la derecha del form */
+  background-color: #ff6f00;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px 8px; /* bordes superiores redondeados */
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: 600;
 }
