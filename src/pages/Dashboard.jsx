@@ -13,6 +13,8 @@ export default function Dashboard() {
       title="Dashboard Power BI"
       src={powerBIUrl}
       className="dashboard-iframe"
+       frameborder="0" 
+       allowFullScreen="true"
     />
   </div>
 </div>
