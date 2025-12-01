@@ -25,7 +25,7 @@ export default function App() {
     return (
       <div className="dashboard-container">
         <div className="dashboard-header">
-          <h1>Tablero</h1>
+          <h1>Tablero sdsd</h1>
           <button onClick={() => signOut(auth)}>Cerrar sesión</button>
         </div>
         <Dashboard />
