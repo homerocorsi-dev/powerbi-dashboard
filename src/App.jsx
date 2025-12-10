@@ -9,7 +9,9 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useAutoLogout(); // 👈 y la llamamos acá, justo dentro del componente
+  const [collapsed, setCollapsed] = useState(false); // 👈 NUEVO
+
+  useAutoLogout();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -22,20 +24,47 @@ export default function App() {
   if (loading) return <div>Cargando...</div>;
 
   if (user) {
-    return (
-      <div className="dashboard-container">
-        <div className="dashboard-header">
-          <h1>Tablero </h1>
-          <button onClick={() => signOut(auth)}>Cerrar sesión</button>
-        </div>
+  return (
+    <div className="dashboard-layout">
+
+      {/* SIDEBAR */}
+      <div className={`dashboard-sidebar ${collapsed ? "collapsed" : ""}`}>
+
+        {/* Botón para colapsar */}
+        <button 
+          className="sidebar-toggle"
+          onClick={() => setCollapsed((prev) => !prev)}
+        >
+          <span className="icon">≡</span>
+          
+          {/* texto largo */}
+          <span className="text-full">Menú</span>
+
+          {/* texto corto (si querés puedes dejarlo igual al largo) */}
+          <span className="text-short">Menú</span>
+        </button>
+
+        {/* Cerrar sesión */}
+        <button onClick={() => signOut(auth)}>
+          <span className="icon">🔒</span>
+
+          {/* Texto largo */}
+          <span className="text-full">Cerrar sesión</span>
+
+          {/* Texto corto (se verá cuando ≤1180px) */}
+          <span className="text-short">Cerrar</span>
+        </button>
+
+      </div>
+
+      {/* CONTENIDO */}
+      <div className="dashboard-content">
         <Dashboard />
       </div>
-    );
-  }
 
-  return (
-    <div>
-      <SingleUserLogin />
     </div>
   );
+}
+
+  return <SingleUserLogin />;
 }

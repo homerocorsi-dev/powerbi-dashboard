@@ -52,16 +52,14 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="dashboard-frame">
-        <iframe
-          width="1024"
-          height="1060"
-          title="Dashboard Power BI"
-          src={powerBIUrl}
-          className="dashboard-iframe"
-          frameBorder="0"
-          allowFullScreen
-        />
-      </div>
+  <iframe
+    title="Dashboard Power BI"
+    src={powerBIUrl}
+    className="dashboard-iframe"
+    frameBorder="0"
+    allowFullScreen
+  />
+</div>
     </div>
   );
 }

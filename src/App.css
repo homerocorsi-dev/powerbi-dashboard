@@ -2,7 +2,5 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* evita scroll y mantiene las dos secciones fijas */
-};
-
-
+  overflow: hidden; /* evita scroll */
+}
